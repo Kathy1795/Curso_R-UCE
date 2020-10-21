@@ -22,11 +22,16 @@
 <td>C1-2</td>
 <td>Estructuras de Control</td>
 </tr>
+</tr>
+<tr class="even">
+<td>C1-3</td>
+<td>Lectura y administración de datos</td>
+</tr>
 </tbody>
 </table>
 
  # Fuentes
- Repositorios de GitHub de:
+ Repositorios GitHub de:
 * [Karen Calva](https://github.com/KarenCalva)
 * [Nestor Montaño](https://github.com/nestormontano)
 * [Victor Morales](https://github.com/vmoprojs)

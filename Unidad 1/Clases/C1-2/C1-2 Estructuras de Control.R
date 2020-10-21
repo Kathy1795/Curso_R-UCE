@@ -8,7 +8,7 @@
 # 1. Estructuras de control -----------------------------------------------
 
 
-## Informaci?n adicional
+## Información adicional
 browseURL(url = "https://www.datacamp.com/community/tutorials/tutorial-on-loops-in-r",
           browser = getOption("browser")) # Datacamp
 browseURL(url = "https://bookdown.org/jboscomendoza/r-principiantes4/if-else.html",
@@ -19,7 +19,7 @@ browseURL(url = "https://bookdown.org/jboscomendoza/r-principiantes4/if-else.htm
 
 # Ejemplo 1
 a <-  5
-b <-  5
+b <-  10
 if (a == b){
   print("a es igual a b")
 }
@@ -35,7 +35,7 @@ if (a == b){
 }
 
 # OJO 
-# La evaluacion l?gica no es vectorizada.
+# La evaluacion lógica no es vectorizada.
 x <- c(2, 3, -5, 6, -2, 8)
 if (x > 0) {
   print("positivo")
@@ -66,7 +66,7 @@ for (i in x){
 ### 1.2.2. repeat
 i <- 1
 repeat {
-  if (i > 5) break
+  if (i > 15) break
   else{
     cat('\n', i, "a?os de edad")
     i <- i + 1
@@ -75,7 +75,7 @@ repeat {
 
 # Funcion cat
 # Esta funci?n escribe texto y variables en la salida.
-# La secuencia de escape "\n" produce una nueva l?nea e impide que la siguiente 
+# La secuencia de escape "\n" produce una nueva linea e impide que la siguiente 
 # salida del programa quede en la misma l?nea.
 
 ### 1.2.3. while
@@ -91,15 +91,22 @@ while (i<5) {
 
 # 2. Familia apply --------------------------------------------------------
 
-# Fuente de informaci?n 
+# Fuente de informacion 
 browseURL(url = "https://www.guru99.com/r-apply-sapply-tapply.html", browser = getOption("browser")) 
 browseURL(url = "http://adv-r.had.co.nz/Functionals.html", browser = getOption("browser")) 
 browseURL(url = "https://www.datacamp.com/community/tutorials/r-tutorial-apply-family", browser = getOption("browser"))
 
 ## 2.1. apply
 data(iris)
+iris <- data.frame(iris)
+
+
 apply(X = iris[,-5],MARGIN = 2,FUN = mean)
 apply(X = iris[,-5],MARGIN = 2,FUN = sum)
+
+data("airquality")
+apply(X = airquality,MARGIN = 2,FUN = mean,na.rm=T)
+sum(is.na(airquality$Ozone))
 
 ## 2.2. lapply
 
@@ -107,8 +114,10 @@ lapply(iris[,-5],FUN = mean)
 lapply(iris, function(x) summary(x))
 
 #sobre un vector
+seq(from=0,to=100,by=10)
+
 lapply(1:10, function(x) x^2)
-lapply()
+
 
 ## 2.2. sapply
 
@@ -126,3 +135,28 @@ resultado
 
 ## 2.2. tapply
 tapply (iris$Sepal.Width, iris$Species, median)
+
+by(iris[,1:4],iris$Species,colMeans)
+
+
+
+# Aplicación --------------------------------------------------------------
+
+asa.data <- read.csv("Datasets/ASA_pasajeros.csv")
+
+lapply(asa.data,class)# Observar el tipo de datos de cada variable
+
+asa.data$Estado
+unique(asa.data$Estado) #unique permite saber los valores sin repetición de una variable de tipo factor
+
+sum(asa.data$Pasajeros.nacionales)  #suma de pasajeros nacionales
+
+colnames(asa.data) # nombres de las vriables
+asa.pasajeros <- asa.data[,c("Pasajeros.nacionales" ,"Pasajeros.internacionales")]
+lapply(asa.pasajeros,sum)  
+total <- sapply(asa.pasajeros,sum)
+sum(total) # total de pasajeros sumados tanto internacional como nacionales
+
+attach(asa.data) # acceder más facilmente a la base de datos
+tapply(asa.data$Pasajeros.nacionales,asa.data$Estado,mean) 
+tapply(Pasajeros.nacionales,Estado,sum)
